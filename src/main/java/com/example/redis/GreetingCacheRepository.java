@@ -76,5 +76,4 @@ public class GreetingCacheRepository {
 
     private final String USER_CACHE_PREFIX = "user::";
 
-
 }

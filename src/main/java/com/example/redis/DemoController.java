@@ -1,5 +1,6 @@
 package com.example.redis;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -32,5 +33,17 @@ public class DemoController {
     @GetMapping("/user/cache/all")
     public Map<String, String> getAllCachedUsers() {
         return demoService.getAllUsersFromCache();
+    }
+
+    @PutMapping("/cache/update/{username}")
+    public ResponseEntity<String> updateUserCache(@PathVariable String username) {
+        String updated = demoService.updateUserInCache(username);
+        return ResponseEntity.ok("Cache updated: " + updated);
+    }
+
+    @DeleteMapping("/cache/delete/{username}")
+    public ResponseEntity<String> deleteUserFromCache(@PathVariable String username) {
+        demoService.evictUserCache(username);
+        return ResponseEntity.ok("Cache entry deleted for user: " + username);
     }
 }
